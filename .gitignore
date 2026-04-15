@@ -1,0 +1,26 @@
+# Build folders
+bin/
+obj/
+
+# Rider / JetBrains
+.idea/
+
+# Visual Studio
+.vs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# User-specific files
+*.user
+*.suo
+
+# NuGet packages
+*.nupkg
+
+# Environment files
+.env

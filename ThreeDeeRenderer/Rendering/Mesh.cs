@@ -1,0 +1,132 @@
+using OpenTK.Graphics.OpenGL4;
+
+namespace ThreeDeeRenderer.Rendering;
+
+public class Mesh
+{
+    private int _vertexBufferObject;
+    private int _vertexArrayObject;
+    private int _elementBufferObject;
+    private int _indicesCount;
+
+    private int _stride;
+    
+    public enum vertexFormat
+    {
+        positionOnly,
+        positionAndColor
+    }
+    
+    public Mesh(float[] vertices, uint[] indices, vertexFormat format)
+    {
+        _indicesCount = indices.Length;
+        
+        // Create & Bind VAO
+        _vertexArrayObject = GL.GenVertexArray();
+        GL.BindVertexArray(_vertexArrayObject); // Bind VAO
+        
+        // Bind VBO
+        _vertexBufferObject = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
+        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+
+        if (format == vertexFormat.positionAndColor)
+        {
+            // Record vertices data in VAO
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, sizeof(float) * 6, 0);
+            GL.EnableVertexAttribArray(0); //  record for location 0 == mesh shape
+        
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, sizeof(float) * 6, sizeof(float) * 3); // position 1 = color information
+            GL.EnableVertexAttribArray(1); // record for location 1
+        }
+        else
+        {
+            // Record vertices data in VAO
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, sizeof(float) * 3, 0);
+            GL.EnableVertexAttribArray(0); //  record for location 0 == mesh shape
+        }
+        
+        // Bind EBO
+        _elementBufferObject = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, _elementBufferObject);
+        GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, BufferUsageHint.StaticDraw);
+        
+        // Unbind buffer + VAO
+        GL.BindVertexArray(0);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+    }
+    
+    public Mesh(float[] vertices, vertexFormat format)
+    {
+        // Create & Bind VAO
+        _vertexArrayObject = GL.GenVertexArray();
+        GL.BindVertexArray(_vertexArrayObject); // Bind VAO
+        
+        // Bind VBO
+        _vertexBufferObject = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
+        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+        
+        if (format == vertexFormat.positionAndColor)
+        {
+            // Record vertices data in VAO
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, sizeof(float) * 6, 0);
+            GL.EnableVertexAttribArray(0); //  record for location 0 == mesh shape
+        
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, sizeof(float) * 6, sizeof(float) * 3); // position 1 = color information
+            GL.EnableVertexAttribArray(1); // record for location 1
+        }
+        else
+        {
+            // Record vertices data in VAO
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, sizeof(float) * 3, 0);
+            GL.EnableVertexAttribArray(0); //  record for location 0 == mesh shape
+        }
+        
+        // Unbind buffer + VAO
+        GL.BindVertexArray(0);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+    }
+
+    public void Draw()
+    {
+        GL.BindVertexArray(_vertexArrayObject);
+        if (_elementBufferObject > 0)
+        {
+            GL.DrawElements(PrimitiveType.Triangles, _indicesCount, DrawElementsType.UnsignedInt, 0);
+        }
+        else
+        {
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+        }
+    }
+    
+    private bool _disposedValue = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposedValue)
+        {
+            GL.DeleteVertexArray(_vertexArrayObject);
+            GL.DeleteBuffer(_vertexBufferObject);
+            GL.DeleteBuffer(_elementBufferObject);
+
+            _disposedValue = true;
+        }
+    }
+
+    ~Mesh()
+    {
+        if (!_disposedValue)
+        {
+            Console.WriteLine("GPU Resource leak! Did you forget to call Dispose()?");
+        }
+    }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+}
