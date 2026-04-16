@@ -39,7 +39,7 @@ public class Mesh
             GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, sizeof(float) * 6, sizeof(float) * 3); // position 1 = color information
             GL.EnableVertexAttribArray(1); // record for location 1
         }
-        else
+        else if  (format == vertexFormat.positionOnly)
         {
             // Record vertices data in VAO
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, sizeof(float) * 3, 0);

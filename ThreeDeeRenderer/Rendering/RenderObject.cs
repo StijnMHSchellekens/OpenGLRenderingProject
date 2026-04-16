@@ -1,16 +1,10 @@
 namespace ThreeDeeRenderer.Rendering;
 
-public class RenderObject
+public class RenderObject(Mesh mesh, Shader shader)
 {
-    public Mesh Mesh { get; }
-    public Shader Shader { get; }
-    
-    public RenderObject(Mesh mesh, Shader shader)
-    {
-        Mesh = mesh;
-        Shader = shader;
-    }
-    
+    public Mesh Mesh { get; } = mesh;
+    public Shader Shader { get; } = shader;
+
     public void Draw()
     {
         Shader.Use();
