@@ -80,4 +80,18 @@ public class ResourceManager
                 throw new Exception($"Mesh '{meshName}' is not supported");
         }
     }
+
+    public void UnLoad()
+    {
+        foreach (var mesh in _objects.Values)
+        {
+            mesh.Dispose();
+        }
+        _objects.Clear();
+        foreach (var shader in _shaders.Values)
+        {
+            shader.Dispose();
+        }
+        _shaders.Clear();
+    }
 }

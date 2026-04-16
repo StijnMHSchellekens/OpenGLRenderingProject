@@ -27,4 +27,16 @@ public class SceneFactory
         
         return scene;
     }
+
+    public TestScene CreateTestScene()
+    {
+        TestScene scene = new TestScene();
+        
+        Shader solidShader = _resourceManager.GetShader("Solid");
+        Mesh square = _resourceManager.GetMesh("Square");
+        
+        scene.AddObject(square, solidShader);
+
+        return scene;
+    }
 }

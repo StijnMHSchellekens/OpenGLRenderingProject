@@ -53,6 +53,7 @@ public class Game : GameWindow
             base.OnRenderFrame(args);
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit);
+            
             _currentScene.Render();
         
             SwapBuffers();
@@ -88,6 +89,12 @@ public class Game : GameWindow
                 demoScene.PreviousObject(); // cycle the other way through meshes.
             } 
         }
+
+        if (KeyboardState.IsKeyPressed(Keys.Space))
+        {
+            _currentScene.Unload();
+            _currentScene = _sceneFactory.CreateTestScene();
+        }
     }
 
     protected override void OnFramebufferResize(FramebufferResizeEventArgs e)
@@ -100,7 +107,7 @@ public class Game : GameWindow
     protected override void OnUnload()
     {
         base.OnUnload();
-        
+        _resourceManager.UnLoad();
         _currentScene.Unload();
     }
 }

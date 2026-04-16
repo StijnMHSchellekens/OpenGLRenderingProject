@@ -16,17 +16,12 @@ public class Scene
     {
         foreach (var obj in _objects)
         {
-            obj.Draw(); // Basic, draw all available objects
+            obj.Draw(); // Basic, draw all available objects. Should be extended to minimize VAO bindings before drawing (list ordering, only binding when needed).
         }
     }
 
     public void Unload()
     {
-        foreach (var mesh in _objects)
-        {
-            mesh.Mesh.Dispose();
-            mesh.Shader.Dispose();
-        }
         _objects.Clear();
     }
     
