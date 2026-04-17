@@ -10,25 +10,6 @@ namespace ThreeDeeRenderer;
 
 public class Game : GameWindow
 {
-    float[] _squareVertices = {
-        0.5f,  0.5f, 0.0f, // top right - 0
-        0.5f, -0.5f, 0.0f, // bottom right - 1
-        -0.5f, -0.5f, 0.0f, // bottom left - 2
-        -0.5f,  0.5f, 0.0f // top left - 3
-    };
-
-    private uint[] _indices = {
-        0, 1, 3,
-        1, 2, 3
-    };
-
-    private float[] _triangleVertices =
-    {
-        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, //Bottom-left vertex
-        0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, //Bottom-right vertex
-        0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, //Top vertex
-    };
-    
     private ResourceManager _resourceManager;
     private SceneFactory _sceneFactory;
     
@@ -43,7 +24,7 @@ public class Game : GameWindow
         _resourceManager = new ResourceManager();
         _sceneFactory = new SceneFactory(_resourceManager);
 
-        _currentScene = _sceneFactory.CreateDemoScene();
+        _currentScene = _sceneFactory.CreateTestScene();
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -88,12 +69,6 @@ public class Game : GameWindow
             {
                 demoScene.PreviousObject(); // cycle the other way through meshes.
             } 
-        }
-
-        if (KeyboardState.IsKeyPressed(Keys.Space))
-        {
-            _currentScene.Unload();
-            _currentScene = _sceneFactory.CreateTestScene();
         }
     }
 

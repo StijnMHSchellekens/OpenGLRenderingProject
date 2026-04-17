@@ -33,7 +33,7 @@ public class SceneFactory
         TestScene scene = new TestScene();
         
         Shader solidShader = _resourceManager.GetShader("Solid");
-        Mesh square = _resourceManager.GetMesh("Square");
+        Mesh square = _resourceManager.GetMesh("solidtriangle");
         
         scene.AddObject(square, solidShader);
 

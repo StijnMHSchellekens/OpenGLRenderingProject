@@ -63,6 +63,13 @@ public class ResourceManager
             0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, //Bottom-right vertex
             0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, //Top vertex
         };
+        
+        float[] _simpleTriangleVertices =
+        {
+            -0.5f, -0.5f, 0.0f, //Bottom-left vertex
+            0.5f, -0.5f, 0.0f, //Bottom-right vertex
+            0.0f, 0.5f, 0.0f //Top vertex
+        };
 
         Mesh _mesh;
         
@@ -74,6 +81,10 @@ public class ResourceManager
                 return _mesh;
             case "square":
                 _mesh = new Mesh(_squareVertices, _indices, Mesh.vertexFormat.positionOnly);
+                _objects[meshName] = _mesh;
+                return _mesh;
+            case "solidtriangle":
+                _mesh = new Mesh(_simpleTriangleVertices, Mesh.vertexFormat.positionOnly);
                 _objects[meshName] = _mesh;
                 return _mesh;
             default:
