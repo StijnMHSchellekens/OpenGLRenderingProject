@@ -3,6 +3,8 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using ThreeDeeRenderer.Rendering;
+using ThreeDeeRenderer.Scenes;
+using ThreeDeeRenderer.Scenes.Demos;
 
 namespace ThreeDeeRenderer;
 
@@ -27,18 +29,10 @@ public class Game : GameWindow
         0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, //Top vertex
     };
     
-
-    private Shader _shader;
-    private Shader _solidShader;
+    private ResourceManager _resourceManager;
+    private SceneFactory _sceneFactory;
     
-    private Mesh _triangle;
-    private Mesh _square;
-
-    private RenderObject _triangleObj;
-    private RenderObject _squareObj;
-    
-    private List<RenderObject> _objects = new();
-    private int _currentMeshIndex = 0;
+    private Scene _currentScene;
     
     public Game(int width, int height, string title) : base(GameWindowSettings.Default, new NativeWindowSettings() 
         { ClientSize = (width, height), Title = title }) { }
@@ -46,17 +40,10 @@ public class Game : GameWindow
     protected override void OnLoad()
     {
         base.OnLoad();
-        _shader = new Shader("Shaders/shader.vert", "Shaders/shader.frag"); // set Shaders
-        _solidShader = new Shader("Shaders/solid.vert", "Shaders/solid.frag"); // set Shaders
-        
-        _square = new Mesh(_squareVertices, _indices, Mesh.vertexFormat.positionOnly);
-        _triangle = new Mesh(_triangleVertices, Mesh.vertexFormat.positionAndColor);
-        
-        _triangleObj = new RenderObject(_triangle, _shader);
-        _squareObj = new RenderObject(_square, _solidShader);
+        _resourceManager = new ResourceManager();
+        _sceneFactory = new SceneFactory(_resourceManager);
 
-        _objects.Add(_triangleObj);
-        _objects.Add(_squareObj);
+        _currentScene = _sceneFactory.CreateDemoScene();
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -66,8 +53,8 @@ public class Game : GameWindow
             base.OnRenderFrame(args);
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit);
-
-            _objects[_currentMeshIndex].Draw();
+            
+            _currentScene.Render();
         
             SwapBuffers();
         }
@@ -89,12 +76,24 @@ public class Game : GameWindow
 
         if (KeyboardState.IsKeyReleased(Keys.Right))
         {
-            _currentMeshIndex =  (_currentMeshIndex + 1) % _objects.Count; // cycle through meshes.
+            if (_currentScene is DemoScene demoScene)
+            {
+                demoScene.NextObject(); // cycle through meshes.
+            }
         }
 
         if (KeyboardState.IsKeyReleased(Keys.Left))
         {
-            _currentMeshIndex = (_currentMeshIndex - 1 + _objects.Count) % _objects.Count; // cycle the other way through meshes.
+            if (_currentScene is DemoScene demoScene)
+            {
+                demoScene.PreviousObject(); // cycle the other way through meshes.
+            } 
+        }
+
+        if (KeyboardState.IsKeyPressed(Keys.Space))
+        {
+            _currentScene.Unload();
+            _currentScene = _sceneFactory.CreateTestScene();
         }
     }
 
@@ -108,11 +107,7 @@ public class Game : GameWindow
     protected override void OnUnload()
     {
         base.OnUnload();
-        foreach (var mesh in _objects)
-        {
-            mesh.Mesh.Dispose();
-            mesh.Shader.Dispose();
-        }
-        _objects.Clear();
+        _resourceManager.UnLoad();
+        _currentScene.Unload();
     }
 }
