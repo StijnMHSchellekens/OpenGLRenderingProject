@@ -1,3 +1,4 @@
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using ThreeDeeRenderer.Rendering;
 
 namespace ThreeDeeRenderer.Scenes.Demos;
@@ -10,6 +11,19 @@ public class DemoScene : Scene
     public override void Render()
     {
         DrawSingleObject(_currentObjectIndex);
+    }
+
+    public override void Update(KeyboardState keyboardState)
+    {
+        if (keyboardState.IsKeyPressed(Keys.Right))
+        {
+            NextObject();
+        }
+
+        if (keyboardState.IsKeyPressed(Keys.Left))
+        {
+            PreviousObject();
+        }
     }
 
     public void NextObject()

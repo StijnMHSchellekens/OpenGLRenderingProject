@@ -24,7 +24,7 @@ public class Game : GameWindow
         _resourceManager = new ResourceManager();
         _sceneFactory = new SceneFactory(_resourceManager);
 
-        _currentScene = _sceneFactory.CreateTestScene();
+        _currentScene = _sceneFactory.CreateDemoScene();
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -50,26 +50,12 @@ public class Game : GameWindow
     {
         base.OnUpdateFrame(e);
         
-        if (KeyboardState.IsKeyDown(Keys.Escape))
+        if (KeyboardState.IsKeyPressed(Keys.Escape))
         {
             Close();
         }
-
-        if (KeyboardState.IsKeyReleased(Keys.Right))
-        {
-            if (_currentScene is DemoScene demoScene)
-            {
-                demoScene.NextObject(); // cycle through meshes.
-            }
-        }
-
-        if (KeyboardState.IsKeyReleased(Keys.Left))
-        {
-            if (_currentScene is DemoScene demoScene)
-            {
-                demoScene.PreviousObject(); // cycle the other way through meshes.
-            } 
-        }
+        
+        _currentScene.Update(KeyboardState);
     }
 
     protected override void OnFramebufferResize(FramebufferResizeEventArgs e)

@@ -1,3 +1,4 @@
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using ThreeDeeRenderer.Rendering;
 
 namespace ThreeDeeRenderer.Scenes;
@@ -19,6 +20,8 @@ public class Scene
             obj.Draw(); // Basic, draw all available objects. Should be extended to minimize VAO bindings before drawing (list ordering, only binding when needed).
         }
     }
+
+    public virtual void Update(KeyboardState keyboardState){} // Override for subclasses
 
     public void Unload()
     {
