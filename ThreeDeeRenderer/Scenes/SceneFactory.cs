@@ -32,8 +32,8 @@ public class SceneFactory
     {
         TestScene scene = new TestScene();
         
-        Shader solidShader = _resourceManager.GetShader("Solid");
-        Mesh triangle = _resourceManager.GetMesh("solidtriangle");
+        Shader solidShader = _resourceManager.GetShader("PosColor");
+        Mesh triangle = _resourceManager.GetMesh("test_triangle");
         
         scene.AddObject(triangle, solidShader);
 

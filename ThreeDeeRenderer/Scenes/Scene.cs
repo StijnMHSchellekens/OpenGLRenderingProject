@@ -4,7 +4,7 @@ namespace ThreeDeeRenderer.Scenes;
 
 public class Scene
 {
-    private List<RenderObject> _objects = new();
+    private List<RenderObject> _objects = new(); // make dictionary with identifiers for each mesh????
 
     public void AddObject(Mesh mesh,  Shader shader)
     {
@@ -24,10 +24,10 @@ public class Scene
     {
         _objects.Clear();
     }
-    
-    protected List<RenderObject> GetObjects()
+
+    protected void DrawSingleObject(int index)
     {
-        return _objects;
+        _objects[index].Draw();
     }
     
     protected int GetObjectCount()

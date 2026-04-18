@@ -1,10 +1,13 @@
+using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 
 namespace ThreeDeeRenderer.Rendering;
 
 public class Mesh
 {
     private int _vertexBufferObject;
+    private int _vertexBufferColor;
     private int _vertexArrayObject;
     private int _elementBufferObject;
     private int _indicesCount;
@@ -16,6 +19,44 @@ public class Mesh
         positionOnly,
         positionAndColor
     }
+
+    public Mesh(List<Vector3> vertices, List<Vector3> color = null)
+    {
+        _vertexArrayObject = GL.GenVertexArray();
+        GL.BindVertexArray(_vertexArrayObject);
+        
+        _vertexBufferObject = GL.GenBuffer();
+        
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
+        
+        var verticesSpan = CollectionsMarshal.AsSpan(vertices);
+        
+        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Count * Vector3.SizeInBytes, ref verticesSpan[0], BufferUsageHint.StaticDraw);
+        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
+        GL.EnableVertexAttribArray(0);
+
+        if (color != null)
+        {
+            if (color.Count != vertices.Count)
+            {
+                throw new Exception("The number of vertices must be equal to the number of colors");
+            }
+            
+            _vertexBufferColor = GL.GenBuffer();
+            var colorSpan = CollectionsMarshal.AsSpan(color);
+            
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // unbind Object Buffer
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferColor); // Bind Color buffer
+            
+            GL.BufferData(BufferTarget.ArrayBuffer, color.Count * Vector3.SizeInBytes, ref colorSpan[0], BufferUsageHint.StaticDraw);
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 0, 0);
+            GL.EnableVertexAttribArray(1);
+        }
+        
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // unbind any buffer
+        GL.BindVertexArray(0); // unbind VAO
+    }
+        
     
     public Mesh(float[] vertices, uint[] indices, vertexFormat format)
     {

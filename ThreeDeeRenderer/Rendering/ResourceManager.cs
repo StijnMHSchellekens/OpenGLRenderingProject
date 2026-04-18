@@ -1,3 +1,5 @@
+using OpenTK.Mathematics;
+
 namespace ThreeDeeRenderer.Rendering;
 
 public class ResourceManager
@@ -63,12 +65,19 @@ public class ResourceManager
             0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, //Bottom-right vertex
             0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, //Top vertex
         };
-        
-        float[] _simpleTriangleVertices =
+
+        List<Vector3> _triangle = new List<Vector3>()
         {
-            -0.5f, -0.5f, 0.0f, //Bottom-left vertex
-            0.5f, -0.5f, 0.0f, //Bottom-right vertex
-            0.0f, 0.5f, 0.0f //Top vertex
+            new Vector3(-0.5f, -0.5f, 0.0f),
+            new Vector3(0.5f, -0.5f, 0.0f),
+            new Vector3(0.0f, 0.5f, 0.0f),
+        };
+
+        List<Vector3> _triangleColor = new List<Vector3>()
+        {
+            new Vector3(1.0f, 0.0f, 0.0f),
+            new Vector3(0.0f, 1.0f, 0.0f),
+            new Vector3(0.0f, 0.0f, 1.0f),
         };
 
         Mesh _mesh;
@@ -84,7 +93,11 @@ public class ResourceManager
                 _objects[meshName] = _mesh;
                 return _mesh;
             case "solidtriangle":
-                _mesh = new Mesh(_simpleTriangleVertices, Mesh.vertexFormat.positionOnly);
+                _mesh = new Mesh(_triangle);
+                _objects[meshName] = _mesh;
+                return _mesh;
+            case "test_triangle":
+                _mesh = new Mesh(_triangle, _triangleColor);
                 _objects[meshName] = _mesh;
                 return _mesh;
             default:

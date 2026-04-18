@@ -9,7 +9,7 @@ public class DemoScene : Scene
     
     public override void Render()
     {
-        GetObjects()[_currentObjectIndex].Draw();
+        DrawSingleObject(_currentObjectIndex);
     }
 
     public void NextObject()
