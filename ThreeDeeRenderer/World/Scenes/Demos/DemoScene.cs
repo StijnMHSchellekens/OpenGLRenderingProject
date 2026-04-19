@@ -11,7 +11,7 @@ public class DemoScene : Scene
         DrawSingleObject(_currentObjectIndex);
     }
 
-    public override void Update(KeyboardState keyboardState)
+    public override void Update(KeyboardState keyboardState, float deltaTime)
     {
         if (keyboardState.IsKeyPressed(Keys.Right))
         {

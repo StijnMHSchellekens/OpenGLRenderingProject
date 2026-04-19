@@ -52,7 +52,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="World\Entities\" />
+      <Folder Include="Rendering\Objects\Meshes\" />
       <Folder Include="World\Scenes\" />
     </ItemGroup>
 

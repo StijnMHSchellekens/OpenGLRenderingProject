@@ -1,18 +1,14 @@
 using ThreeDeeRenderer.Rendering;
 using ThreeDeeRenderer.Rendering.Objects;
 using ThreeDeeRenderer.Rendering.Shaders;
+using ThreeDeeRenderer.World.Entities;
 using ThreeDeeRenderer.World.Scenes.Demos;
 
 namespace ThreeDeeRenderer.World;
 
-public class SceneFactory
+public class SceneFactory(ResourceManager resourceManager)
 {
-    ResourceManager _resourceManager;
-    
-    public SceneFactory(ResourceManager resourceManager)
-    {
-        _resourceManager = resourceManager;
-    }
+    ResourceManager _resourceManager = resourceManager;
     
     public DemoScene CreateDemoScene()
     {
@@ -34,10 +30,13 @@ public class SceneFactory
     {
         TestScene scene = new TestScene();
         
-        Shader solidShader = _resourceManager.GetShader("PosColor");
+        Shader solidShader = _resourceManager.GetShader("PosColorTrans");
         Mesh triangle = _resourceManager.GetMesh("test_triangle");
         
-        scene.AddObject(triangle, solidShader);
+        RenderObject renderObject = new RenderObject(triangle, solidShader);
+        DemoTriangleEntity entity = new DemoTriangleEntity(renderObject);
+        
+        scene.AddEntity(entity);
 
         return scene;
     }

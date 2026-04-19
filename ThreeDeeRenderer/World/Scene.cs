@@ -8,22 +8,29 @@ namespace ThreeDeeRenderer.World;
 public class Scene
 {
     private List<RenderObject> _objects = new(); // make dictionary with identifiers for each mesh????
+    private List<Entity> _entities = new();
 
     public void AddObject(Mesh mesh,  Shader shader)
     {
         RenderObject obj = new RenderObject(mesh, shader);
         _objects.Add(obj);
+        //_objects.Add(obj);
     }
 
+    public void AddEntity(Entity entity)
+    {
+        _entities.Add(entity);
+    }
+    
     public virtual void Render()
     {
-        foreach (var obj in _objects)
+        foreach (var entity in _entities)
         {
-            obj.Draw(); // Basic, draw all available objects. Should be extended to minimize VAO bindings before drawing (list ordering, only binding when needed).
+            entity.Draw(); // Basic, draw all available entities. Should be extended to minimize VAO bindings before drawing (list ordering, only binding when needed).
         }
     }
 
-    public virtual void Update(KeyboardState keyboardState){} // Override for subclasses
+    public virtual void Update(KeyboardState keyboardState, float deltaTime){} // Override for subclasses
 
     public void Unload()
     {
@@ -38,5 +45,10 @@ public class Scene
     protected int GetObjectCount()
     {
         return _objects.Count;
+    }
+
+    protected List<Entity> GetEntities()
+    {
+        return _entities;
     }
 }

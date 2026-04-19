@@ -38,13 +38,23 @@ public class Transform
         _scale += scale;
     }
 
+    public Vector3 GetPosition()
+    {
+        return _position;
+    }
+
+    public Vector3 GetRotation()
+    {
+        return _rotation;
+    }
+
     public Matrix4 GetMatrix()
     {
         Matrix4 translation = Matrix4.CreateTranslation(_position);
         
-        Matrix4 rotatex = Matrix4.CreateRotationX(_rotation.X);
-        Matrix4 rotatey = Matrix4.CreateRotationY(_rotation.Y);
-        Matrix4 rotatez = Matrix4.CreateRotationZ(_rotation.Z);
+        Matrix4 rotatex = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(_rotation.X));
+        Matrix4 rotatey = Matrix4.CreateRotationY(MathHelper.DegreesToRadians(_rotation.Y));
+        Matrix4 rotatez = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(_rotation.Z));
         
         Matrix4 scale = Matrix4.CreateScale(_scale);
         

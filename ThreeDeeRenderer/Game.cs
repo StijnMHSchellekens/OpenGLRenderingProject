@@ -53,7 +53,7 @@ public class Game : GameWindow
             Close();
         }
         
-        _currentScene.Update(KeyboardState);
+        _currentScene.Update(KeyboardState, (float)e.Time);
     }
 
     protected override void OnFramebufferResize(FramebufferResizeEventArgs e)
