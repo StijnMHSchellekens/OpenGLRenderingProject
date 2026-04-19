@@ -9,8 +9,10 @@ public class ResourceManager
 
     public Shader GetShader(string shaderName)
     {
+        Console.WriteLine($"Loading shader: {shaderName}");
         if (_shaders.ContainsKey(shaderName))
         {
+            Console.WriteLine($"Shader '{shaderName}' already cached. Loading from cache.");
             return _shaders[shaderName];
         }
         
@@ -19,8 +21,10 @@ public class ResourceManager
 
     public Mesh GetMesh(string meshName)
     {
+        Console.WriteLine($"Loading mesh: {meshName}");
         if (_objects.ContainsKey(meshName))
         {
+            Console.WriteLine($"Mesh '{meshName}' already cached. Loading from cache.");
             return _objects[meshName];
         }
         
@@ -29,11 +33,15 @@ public class ResourceManager
 
     private Shader GetShaderFromName(string shaderName)
     {
-        var pathName = Path.Combine("Shaders", shaderName);
+        var pathName = Path.Combine("Rendering/Shaders", shaderName);
 
+        Console.WriteLine($"Shader '{pathName}' not cached. Loading from disk.");
+        
         var vertexPath = Directory.GetFiles(pathName, "*.vert").FirstOrDefault();
         var fragmentPath = Directory.GetFiles(pathName, "*.frag").FirstOrDefault();
 
+        Console.WriteLine($"Looking for '{shaderName}' at {vertexPath} and {fragmentPath}");
+        
         if (vertexPath == null || fragmentPath == null)
         {
             throw new Exception($"Shader '{shaderName}' is missing .vert or .frag file");
@@ -41,6 +49,7 @@ public class ResourceManager
         
         var shader = new Shader(vertexPath, fragmentPath);
 
+        Console.WriteLine($"Shader '{shaderName}' loaded/cached");
         _shaders[shaderName] = shader; 
         return shader;
     }
@@ -86,18 +95,22 @@ public class ResourceManager
         {
             case "triangle":
                 _mesh = new Mesh(_triangleVertices, Mesh.vertexFormat.positionAndColor);
+                Console.WriteLine("Triangle mesh created");
                 _objects[meshName] = _mesh;
                 return _mesh;
             case "square":
                 _mesh = new Mesh(_squareVertices, _indices, Mesh.vertexFormat.positionOnly);
+                Console.WriteLine("Square mesh created");
                 _objects[meshName] = _mesh;
                 return _mesh;
             case "solidtriangle":
                 _mesh = new Mesh(_triangle);
+                Console.WriteLine("Triangle mesh created (Vector3)");
                 _objects[meshName] = _mesh;
                 return _mesh;
             case "test_triangle":
                 _mesh = new Mesh(_triangle, _triangleColor);
+                Console.WriteLine("Triangle+color mesh created (Vector3, Vector3)");
                 _objects[meshName] = _mesh;
                 return _mesh;
             default:

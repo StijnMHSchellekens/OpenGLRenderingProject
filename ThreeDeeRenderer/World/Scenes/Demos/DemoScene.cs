@@ -6,7 +6,6 @@ namespace ThreeDeeRenderer.Scenes.Demos;
 public class DemoScene : Scene
 {
     private int _currentObjectIndex = 0;
-
     
     public override void Render()
     {

@@ -24,7 +24,7 @@ public class Game : GameWindow
         _resourceManager = new ResourceManager();
         _sceneFactory = new SceneFactory(_resourceManager);
 
-        _currentScene = _sceneFactory.CreateDemoScene();
+        _currentScene = _sceneFactory.CreateTestScene();
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -49,7 +49,6 @@ public class Game : GameWindow
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
         base.OnUpdateFrame(e);
-        
         if (KeyboardState.IsKeyPressed(Keys.Escape))
         {
             Close();

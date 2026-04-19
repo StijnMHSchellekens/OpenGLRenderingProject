@@ -19,36 +19,41 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="Shaders\**\*">
+        <None Include="Rendering\Shaders\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\Solid\shader.frag">
+        <None Update="Rendering\Shaders\Solid\shader.frag">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\Solid\shader.vert">
+        <None Update="Rendering\Shaders\Solid\shader.vert">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\PosColor\solid.vert">
+        <None Update="Rendering\Shaders\PosColor\solid.vert">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\Solid\solid.vert">
+        <None Update="Rendering\Shaders\Solid\solid.vert">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\Solid\solid.frag">
+        <None Update="Rendering\Shaders\Solid\solid.frag">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\PosColor\shader.frag">
+        <None Update="Rendering\Shaders\PosColor\shader.frag">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\PosColor\shader.vert">
+        <None Update="Rendering\Shaders\PosColor\shader.vert">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\PosColorTrans\shader.frag">
+        <None Update="Rendering\Shaders\PosColorTrans\shader.frag">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Shaders\PosColorTrans\shader.vert">
+        <None Update="Rendering\Shaders\PosColorTrans\shader.vert">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="World\Entities\" />
+      <Folder Include="World\Scenes\" />
     </ItemGroup>
 
 </Project>

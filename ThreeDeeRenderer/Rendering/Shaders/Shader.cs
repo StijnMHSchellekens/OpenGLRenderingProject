@@ -4,13 +4,13 @@ namespace ThreeDeeRenderer.Rendering;
 
 public class Shader
 {
-    private int _handle;
+    public int Handle { get; }
 
     public void Use()
     {
         try
         {
-            GL.UseProgram(_handle);
+            GL.UseProgram(Handle);
         }
         catch (Exception e)
         {
@@ -21,7 +21,7 @@ public class Shader
     
     public int GetAttribLocation(string attribName)
     {
-        return GL.GetAttribLocation(_handle, attribName);
+        return GL.GetAttribLocation(Handle, attribName);
     }
 
     public Shader(string vertexPath, string fragmentPath)
@@ -52,22 +52,22 @@ public class Shader
             Console.WriteLine(infoLog);
         }
             
-        _handle = GL.CreateProgram();
-        GL.AttachShader(_handle, vertexShader);
-        GL.AttachShader(_handle, fragmentShader);
+        Handle = GL.CreateProgram();
+        GL.AttachShader(Handle, vertexShader);
+        GL.AttachShader(Handle, fragmentShader);
         
-        GL.LinkProgram(_handle);
+        GL.LinkProgram(Handle);
         
-        GL.GetProgram(_handle, GetProgramParameterName.LinkStatus, out success);
+        GL.GetProgram(Handle, GetProgramParameterName.LinkStatus, out success);
         if (success == 0)
         {
-            var infoLog = GL.GetProgramInfoLog(_handle);
+            var infoLog = GL.GetProgramInfoLog(Handle);
             Console.WriteLine(infoLog);
         }
         
         // Cleanup 
-        GL.DetachShader(_handle, vertexShader);
-        GL.DetachShader(_handle, fragmentShader);
+        GL.DetachShader(Handle, vertexShader);
+        GL.DetachShader(Handle, fragmentShader);
         GL.DeleteShader(fragmentShader);
         GL.DeleteShader(vertexShader);
     }
@@ -78,7 +78,7 @@ public class Shader
     {
         if (!_disposedValue)
         {
-            GL.DeleteProgram(_handle);
+            GL.DeleteProgram(Handle);
 
             _disposedValue = true;
         }
