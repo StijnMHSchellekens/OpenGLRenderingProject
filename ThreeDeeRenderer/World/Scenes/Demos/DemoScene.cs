@@ -1,7 +1,6 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using ThreeDeeRenderer.Rendering;
 
-namespace ThreeDeeRenderer.Scenes.Demos;
+namespace ThreeDeeRenderer.World.Scenes.Demos;
 
 public class DemoScene : Scene
 {

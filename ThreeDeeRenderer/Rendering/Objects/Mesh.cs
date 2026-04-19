@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-namespace ThreeDeeRenderer.Rendering;
+namespace ThreeDeeRenderer.Rendering.Objects;
 
 public class Mesh
 {

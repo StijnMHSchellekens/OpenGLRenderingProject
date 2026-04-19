@@ -1,6 +1,6 @@
 using OpenTK.Graphics.OpenGL4;
 
-namespace ThreeDeeRenderer.Rendering;
+namespace ThreeDeeRenderer.Rendering.Shaders;
 
 public class Shader
 {

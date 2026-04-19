@@ -1,4 +1,7 @@
-namespace ThreeDeeRenderer.Rendering;
+using ThreeDeeRenderer.Rendering;
+using ThreeDeeRenderer.Rendering.Objects;
+
+namespace ThreeDeeRenderer.World;
 
 public class Entity
 {

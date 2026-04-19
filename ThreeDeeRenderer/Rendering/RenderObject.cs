@@ -1,3 +1,6 @@
+using ThreeDeeRenderer.Rendering.Objects;
+using ThreeDeeRenderer.Rendering.Shaders;
+
 namespace ThreeDeeRenderer.Rendering;
 
 public class RenderObject(Mesh mesh, Shader shader)

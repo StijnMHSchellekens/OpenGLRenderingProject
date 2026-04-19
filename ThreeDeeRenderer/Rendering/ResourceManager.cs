@@ -1,4 +1,6 @@
 using OpenTK.Mathematics;
+using ThreeDeeRenderer.Rendering.Objects;
+using ThreeDeeRenderer.Rendering.Shaders;
 
 namespace ThreeDeeRenderer.Rendering;
 

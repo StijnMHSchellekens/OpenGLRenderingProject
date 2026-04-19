@@ -1,6 +1,6 @@
 using OpenTK.Mathematics;
 
-namespace ThreeDeeRenderer.Rendering;
+namespace ThreeDeeRenderer.Rendering.Objects;
 
 public class Transform
 {

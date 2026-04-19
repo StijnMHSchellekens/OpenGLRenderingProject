@@ -1,7 +1,9 @@
 using ThreeDeeRenderer.Rendering;
-using ThreeDeeRenderer.Scenes.Demos;
+using ThreeDeeRenderer.Rendering.Objects;
+using ThreeDeeRenderer.Rendering.Shaders;
+using ThreeDeeRenderer.World.Scenes.Demos;
 
-namespace ThreeDeeRenderer.Scenes;
+namespace ThreeDeeRenderer.World;
 
 public class SceneFactory
 {

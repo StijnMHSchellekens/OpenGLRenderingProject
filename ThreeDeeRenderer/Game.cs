@@ -3,8 +3,7 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using ThreeDeeRenderer.Rendering;
-using ThreeDeeRenderer.Scenes;
-using ThreeDeeRenderer.Scenes.Demos;
+using ThreeDeeRenderer.World;
 
 namespace ThreeDeeRenderer;
 

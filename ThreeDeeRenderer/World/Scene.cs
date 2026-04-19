@@ -1,7 +1,9 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using ThreeDeeRenderer.Rendering;
+using ThreeDeeRenderer.Rendering.Objects;
+using ThreeDeeRenderer.Rendering.Shaders;
 
-namespace ThreeDeeRenderer.Scenes;
+namespace ThreeDeeRenderer.World;
 
 public class Scene
 {
