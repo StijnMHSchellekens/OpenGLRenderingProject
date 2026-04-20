@@ -11,6 +11,8 @@ public class Mesh
     private int _vertexArrayObject;
     private int _elementBufferObject;
     private int _indicesCount;
+    private int _vertexCount;
+    
 
     private int _stride;
     
@@ -22,6 +24,8 @@ public class Mesh
 
     public Mesh(List<Vector3> vertices, List<Vector3> color = null)
     {
+        Console.WriteLine($"Creating mesh with {vertices.Count} vertices");
+        _vertexCount = vertices.Count;
         _vertexArrayObject = GL.GenVertexArray();
         GL.BindVertexArray(_vertexArrayObject);
         
@@ -61,6 +65,8 @@ public class Mesh
     public Mesh(float[] vertices, uint[] indices, vertexFormat format)
     {
         _indicesCount = indices.Length;
+        Console.WriteLine($"Creating mesh with {vertices.Length} vertices");
+        _vertexCount = vertices.Length;
         
         // Create & Bind VAO
         _vertexArrayObject = GL.GenVertexArray();
@@ -73,6 +79,9 @@ public class Mesh
 
         if (format == vertexFormat.positionAndColor)
         {
+            _vertexCount = vertices.Length / 2;
+            Console.WriteLine($"Vertex format is position and color. Actual vertices length: {vertices.Length}");
+            
             // Record vertices data in VAO
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, sizeof(float) * 6, 0);
             GL.EnableVertexAttribArray(0); //  record for location 0 == mesh shape
@@ -100,6 +109,9 @@ public class Mesh
     
     public Mesh(float[] vertices, vertexFormat format)
     {
+        Console.WriteLine($"Creating mesh with {vertices.Length} vertices");
+        _vertexCount = vertices.Length;
+        
         // Create & Bind VAO
         _vertexArrayObject = GL.GenVertexArray();
         GL.BindVertexArray(_vertexArrayObject); // Bind VAO
@@ -139,7 +151,11 @@ public class Mesh
         }
         else
         {
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 18);
+            if (_vertexCount < 3)
+            {
+                Console.WriteLine("Less than 3 vertices available; falling back to 3. Is this a triangle?");
+            }
+            GL.DrawArrays(PrimitiveType.Triangles, 0, _vertexCount | 3);
         }
     }
     

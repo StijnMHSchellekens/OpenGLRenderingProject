@@ -32,17 +32,26 @@ public class SceneFactory(ResourceManager resourceManager)
         TestScene scene = new TestScene();
         Camera camera = new Camera();
         
+        camera.initializeCamera(1920, 1080, 90f);
+        
         Shader solidShader = _resourceManager.GetShader("PosColorTrans");
         Mesh triangle = _resourceManager.GetMesh("pyramid");
         
         RenderObject renderObject = new RenderObject(triangle, solidShader);
-        DemoTriangleEntity entity = new DemoTriangleEntity(renderObject);
+
+        Random random = new Random();
         
-        camera.initializeCamera(1920, 1080, 60f);
+        for (int i = 0; i < 50000; i++)
+        {
+            float randoX = (random.NextSingle() * (50f - -50f)) + -50f;
+            float randoY = (random.NextSingle() * (50f - -50f)) + -50f;
+            
+            DemoTriangleEntity entity = new DemoTriangleEntity(renderObject);
+            entity.transform.SetPosition(new Vector3(randoX, randoY, -50.0f));
         
-        entity.transform.SetPosition(new Vector3(0.0f, -0.5f, -5.0f));
+            scene.AddEntity(entity);
+        }
         
-        scene.AddEntity(entity);
         scene.AddCamera(camera);
 
         return scene;

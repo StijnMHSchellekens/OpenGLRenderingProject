@@ -14,6 +14,7 @@ public class Game : GameWindow
     
     private Scene _currentScene;
     
+    
     public Game(int width, int height, string title) : base(GameWindowSettings.Default, new NativeWindowSettings() 
         { ClientSize = (width, height), Title = title }) { }
 
