@@ -10,6 +10,8 @@ public class Scene
     private List<RenderObject> _objects = new(); // make dictionary with identifiers for each mesh????
     private List<Entity> _entities = new();
 
+    private Camera _camera;
+    
     public void AddObject(Mesh mesh,  Shader shader)
     {
         RenderObject obj = new RenderObject(mesh, shader);
@@ -21,12 +23,17 @@ public class Scene
     {
         _entities.Add(entity);
     }
+
+    public void AddCamera(Camera camera)
+    {
+        _camera = camera;
+    }
     
     public virtual void Render()
     {
         foreach (var entity in _entities)
         {
-            entity.Draw(); // Basic, draw all available entities. Should be extended to minimize VAO bindings before drawing (list ordering, only binding when needed).
+            entity.Draw(_camera); // Basic, draw all available entities. Should be extended to minimize VAO bindings before drawing (list ordering, only binding when needed).
         }
     }
 

@@ -7,12 +7,36 @@ public class DemoTriangleEntity(RenderObject renderObject) : Entity(renderObject
 {
 
     private float rotation_axis = 0.0f;
-    private float rotation_other_axis = 0.0f;
+    private float position_axis = 0.0f;
+    private float timer = 0.0f;
+    
+    private float origin_y = 0.0f;
 
     public void animateRotation(float deltaTime)
     {
-        rotation_axis += 45f * deltaTime;
-        rotation_other_axis += 360f * deltaTime;
-        transform.SetRotation(new Vector3(0.0f, rotation_other_axis %= 360, rotation_axis %= 360));
+        if (origin_y == 0.0f)
+        {
+            origin_y = transform.GetPosition().Y;
+        }
+        
+        rotation_axis += 200 * deltaTime;
+        rotation_axis %= 360;
+        
+        timer += deltaTime;
+
+        position_axis += 0.01f;
+        
+        position_axis = 0 + Oscillate(timer, 2f) * 1;
+        
+        //Console.WriteLine(position_axis);
+        
+        transform.SetRotation(new Vector3(transform.GetRotation().X, rotation_axis, transform.GetRotation().Z));
+        transform.SetPosition(new Vector3(transform.GetPosition().X, position_axis + origin_y, transform.GetPosition().Z));
     }
+    
+    float Oscillate(float time, float speed)
+    {
+        return MathF.Cos(time * speed);
+    }
+
 }

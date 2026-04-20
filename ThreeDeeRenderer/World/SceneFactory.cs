@@ -1,3 +1,4 @@
+using OpenTK.Mathematics;
 using ThreeDeeRenderer.Rendering;
 using ThreeDeeRenderer.Rendering.Objects;
 using ThreeDeeRenderer.Rendering.Shaders;
@@ -29,14 +30,20 @@ public class SceneFactory(ResourceManager resourceManager)
     public TestScene CreateTestScene()
     {
         TestScene scene = new TestScene();
+        Camera camera = new Camera();
         
         Shader solidShader = _resourceManager.GetShader("PosColorTrans");
-        Mesh triangle = _resourceManager.GetMesh("test_triangle");
+        Mesh triangle = _resourceManager.GetMesh("pyramid");
         
         RenderObject renderObject = new RenderObject(triangle, solidShader);
         DemoTriangleEntity entity = new DemoTriangleEntity(renderObject);
         
+        camera.initializeCamera(1920, 1080, 60f);
+        
+        entity.transform.SetPosition(new Vector3(0.0f, -0.5f, -5.0f));
+        
         scene.AddEntity(entity);
+        scene.AddCamera(camera);
 
         return scene;
     }

@@ -20,10 +20,14 @@ public class Game : GameWindow
     protected override void OnLoad()
     {
         base.OnLoad();
+        
         _resourceManager = new ResourceManager();
         _sceneFactory = new SceneFactory(_resourceManager);
 
         _currentScene = _sceneFactory.CreateTestScene();
+        
+        GL.Enable(EnableCap.DepthTest);
+        //GL.Disable(EnableCap.CullFace);
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -32,7 +36,7 @@ public class Game : GameWindow
         {
             base.OnRenderFrame(args);
             GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             
             _currentScene.Render();
         

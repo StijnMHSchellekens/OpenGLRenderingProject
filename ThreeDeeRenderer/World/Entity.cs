@@ -17,11 +17,19 @@ public class Entity
 
     public virtual void update(){}
 
-    public virtual void Draw()
+    public virtual void Draw(Camera camera = null)
     {
         Matrix4 model = transform.GetMatrix();
+        Matrix4 view = camera?.GetViewMatrix() ?? Matrix4.Identity;
+        Matrix4 projection = camera?.GetProjectionMatrix() ?? Matrix4.Identity;
+        
         int modelLocation = GL.GetUniformLocation(_renderObject.Shader.Handle, "model");
+        int viewLocation = GL.GetUniformLocation(_renderObject.Shader.Handle, "view");
+        int projectionLocation = GL.GetUniformLocation(_renderObject.Shader.Handle, "projection");
+        
         GL.UniformMatrix4(modelLocation, false, ref model);
+        GL.UniformMatrix4(viewLocation, false, ref view);
+        GL.UniformMatrix4(projectionLocation, false, ref projection);
         _renderObject.Draw();
     }
 }

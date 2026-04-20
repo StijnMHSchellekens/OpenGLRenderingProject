@@ -1,3 +1,4 @@
+using OpenTK.Graphics.ES20;
 using OpenTK.Mathematics;
 using ThreeDeeRenderer.Rendering.Objects;
 using ThreeDeeRenderer.Rendering.Shaders;
@@ -90,6 +91,72 @@ public class ResourceManager
             new Vector3(0.0f, 1.0f, 0.0f),
             new Vector3(0.0f, 0.0f, 1.0f),
         };
+        
+        List<Vector3> _pyramid = new List<Vector3>()
+        {
+            // Front
+            new Vector3(-0.5f, -0.5f,  0.5f),
+            new Vector3( 0.0f,  0.5f,  0.0f),
+            new Vector3( 0.5f, -0.5f,  0.5f),
+
+            // Right
+            new Vector3( 0.5f, -0.5f,  0.5f),
+            new Vector3( 0.0f,  0.5f,  0.0f),
+            new Vector3( 0.5f, -0.5f, -0.5f),
+
+            // Back
+            new Vector3( 0.5f, -0.5f, -0.5f),
+            new Vector3( 0.0f,  0.5f,  0.0f),
+            new Vector3(-0.5f, -0.5f, -0.5f),
+
+            // Left
+            new Vector3(-0.5f, -0.5f, -0.5f),
+            new Vector3( 0.0f,  0.5f,  0.0f),
+            new Vector3(-0.5f, -0.5f,  0.5f),
+
+            // Bottom triangle 1
+            new Vector3(-0.5f, -0.5f,  0.5f),
+            new Vector3( 0.5f, -0.5f,  0.5f),
+            new Vector3( 0.5f, -0.5f, -0.5f),
+
+            // Bottom triangle 2
+            new Vector3(-0.5f, -0.5f,  0.5f),
+            new Vector3( 0.5f, -0.5f, -0.5f),
+            new Vector3(-0.5f, -0.5f, -0.5f),
+        };
+        
+        List<Vector3> _pyramidColor = new List<Vector3>()
+        {
+            // Front - red
+            new Vector3(1.0f, 0.0f, 0.0f),
+            new Vector3(1.0f, 0.0f, 0.0f),
+            new Vector3(1.0f, 0.0f, 0.0f),
+
+            // Right - green
+            new Vector3(0.0f, 1.0f, 0.0f),
+            new Vector3(0.0f, 1.0f, 0.0f),
+            new Vector3(0.0f, 1.0f, 0.0f),
+
+            // Back - blue
+            new Vector3(0.0f, 0.0f, 1.0f),
+            new Vector3(0.0f, 0.0f, 1.0f),
+            new Vector3(0.0f, 0.0f, 1.0f),
+
+            // Left - yellow
+            new Vector3(1.0f, 1.0f, 0.0f),
+            new Vector3(1.0f, 1.0f, 0.0f),
+            new Vector3(1.0f, 1.0f, 0.0f),
+
+            // Bottom triangle 1 - gray
+            new Vector3(0.5f, 0.5f, 0.5f),
+            new Vector3(0.5f, 0.5f, 0.5f),
+            new Vector3(0.5f, 0.5f, 0.5f),
+
+            // Bottom triangle 2 - gray
+            new Vector3(0.5f, 0.5f, 0.5f),
+            new Vector3(0.5f, 0.5f, 0.5f),
+            new Vector3(0.5f, 0.5f, 0.5f),
+        };
 
         Mesh _mesh;
         
@@ -113,6 +180,11 @@ public class ResourceManager
             case "test_triangle":
                 _mesh = new Mesh(_triangle, _triangleColor);
                 Console.WriteLine("Triangle+color mesh created (Vector3, Vector3)");
+                _objects[meshName] = _mesh;
+                return _mesh;
+            case "pyramid":
+                _mesh = new Mesh(_pyramid, _pyramidColor);
+                Console.WriteLine("Pyramid mesh created (Vector3, Vector3)");
                 _objects[meshName] = _mesh;
                 return _mesh;
             default:

@@ -59,7 +59,7 @@ public class Transform
         Matrix4 scale = Matrix4.CreateScale(_scale);
         
         Matrix4 rotation = rotatex * rotatey * rotatez;
-        Matrix4 transform = translation * rotation * scale;
+        Matrix4 transform = scale * rotation * translation;
         
         return transform;
     }
