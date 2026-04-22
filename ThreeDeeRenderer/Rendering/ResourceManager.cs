@@ -70,6 +70,70 @@ public class ResourceManager
             0, 1, 3,
             1, 2, 3
         };
+        
+        float[] _cubeVertices = {
+            // Front face
+            0.5f,  0.5f,  0.5f, // 0
+            0.5f, -0.5f,  0.5f, // 1
+            -0.5f, -0.5f,  0.5f, // 2
+            -0.5f,  0.5f,  0.5f, // 3
+
+            // Back face
+            0.5f,  0.5f, -0.5f, // 4
+            0.5f, -0.5f, -0.5f, // 5
+            -0.5f, -0.5f, -0.5f, // 6
+            -0.5f,  0.5f, -0.5f, // 7
+
+            // Left face
+            -0.5f,  0.5f,  0.5f, // 8
+            -0.5f, -0.5f,  0.5f, // 9
+            -0.5f, -0.5f, -0.5f, // 10
+            -0.5f,  0.5f, -0.5f, // 11
+
+            // Right face
+            0.5f,  0.5f,  0.5f, // 12
+            0.5f, -0.5f,  0.5f, // 13
+            0.5f, -0.5f, -0.5f, // 14
+            0.5f,  0.5f, -0.5f, // 15
+
+            // Top face
+            0.5f,  0.5f,  0.5f, // 16
+            0.5f,  0.5f, -0.5f, // 17
+            -0.5f,  0.5f, -0.5f, // 18
+            -0.5f,  0.5f,  0.5f, // 19
+
+            // Bottom face
+            0.5f, -0.5f,  0.5f, // 20
+            0.5f, -0.5f, -0.5f, // 21
+            -0.5f, -0.5f, -0.5f, // 22
+            -0.5f, -0.5f,  0.5f  // 23
+        };
+        
+        uint[] _cubeIndices = {
+            // Front
+            0, 1, 3,
+            1, 2, 3,
+
+            // Back
+            4, 7, 5,
+            5, 7, 6,
+
+            // Left
+            8, 9, 11,
+            9,10,11,
+
+            // Right
+            12,15,13,
+            13,15,14,
+
+            // Top
+            16,17,19,
+            17,18,19,
+
+            // Bottom
+            20,23,21,
+            21,23,22
+        };
 
         float[] _triangleVertices =
         {
@@ -185,6 +249,11 @@ public class ResourceManager
             case "pyramid":
                 _mesh = new Mesh(_pyramid, _pyramidColor);
                 Console.WriteLine("Pyramid mesh created (Vector3, Vector3)");
+                _objects[meshName] = _mesh;
+                return _mesh;
+            case "cube":
+                _mesh = new Mesh(_cubeVertices, _cubeIndices, Mesh.vertexFormat.positionOnly);
+                Console.WriteLine("Cube mesh created (Vector3, Vector3)");
                 _objects[meshName] = _mesh;
                 return _mesh;
             default:

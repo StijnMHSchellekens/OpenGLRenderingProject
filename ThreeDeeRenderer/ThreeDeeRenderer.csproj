@@ -49,6 +49,12 @@
         <None Update="Rendering\Shaders\PosColorTrans\shader.vert">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Rendering\Shaders\SolidTrans\solid.frag">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Rendering\Shaders\SolidTrans\solid.vert">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

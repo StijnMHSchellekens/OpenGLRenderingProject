@@ -3,7 +3,7 @@ using ThreeDeeRenderer.Rendering;
 
 namespace ThreeDeeRenderer.World.Entities;
 
-public class DemoTriangleEntity(RenderObject renderObject) : Entity(renderObject)
+public class DemoTriangleEntity(RenderObject renderObject, RenderPolicy renderPolicy = RenderPolicy.Auto) : Entity(renderObject, renderPolicy)
 {
 
     private float rotation_axis = 0.0f;

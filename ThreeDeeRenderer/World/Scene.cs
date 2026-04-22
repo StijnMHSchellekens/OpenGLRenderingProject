@@ -9,6 +9,8 @@ public class Scene
 {
     private List<RenderObject> _objects = new(); // make dictionary with identifiers for each mesh????
     private List<Entity> _entities = new();
+    
+    private RenderDispatcher _renderDispatcher = new RenderDispatcher();
 
     private Camera _camera;
     
@@ -31,9 +33,13 @@ public class Scene
     
     public virtual void Render()
     {
+        // TODO: Work on separating entities based on required Rendering Logic (I.E Instanced/Special (single Draw per Entity).
+        _renderDispatcher.Dispatch(_entities, _camera);
+        
+        // TODO: Work on adding logic for instanced rendering.
         foreach (var entity in _entities)
         {
-            entity.Draw(_camera); // Basic, draw all available entities. Should be extended to minimize VAO bindings before drawing (list ordering, only binding when needed).
+            entity.Draw(_camera); // Basic, draw all available entities.
         }
     }
 

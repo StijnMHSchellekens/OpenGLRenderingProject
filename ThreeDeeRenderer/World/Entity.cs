@@ -5,14 +5,24 @@ using ThreeDeeRenderer.Rendering.Objects;
 
 namespace ThreeDeeRenderer.World;
 
+public enum RenderPolicy
+{
+    Auto, // Let the RenderDispatcher decide
+    Instanced, // Always Instanced rendering (requires amount of objects to be known)
+    SingleDraw // Always Single Draw per Entity Spawn (For special entities/entities requiring high interaction. I.E., Player, Special Chests, Certain Interactable NPCs)
+}
+
 public class Entity
 {
-    private RenderObject _renderObject;
+    public RenderObject _renderObject { get; }
     public Transform transform { get; } = new Transform();
+    
+    public RenderPolicy RenderPolicy { get; }
 
-    public Entity(RenderObject renderObject)
+    public Entity(RenderObject renderObject, RenderPolicy renderPolicy = RenderPolicy.Auto)
     {
         _renderObject = renderObject;
+        RenderPolicy = renderPolicy;
     }
 
     public virtual void update(){}
