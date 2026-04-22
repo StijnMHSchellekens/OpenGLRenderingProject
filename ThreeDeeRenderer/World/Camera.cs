@@ -1,8 +1,7 @@
-using OpenTK.Graphics.ES20;
 using OpenTK.Mathematics;
-using ThreeDeeRenderer.Rendering.Shaders;
+using ThreeDeeRenderer.Rendering.Objects;
 
-namespace ThreeDeeRenderer.Rendering.Objects;
+namespace ThreeDeeRenderer.World;
 
 public class Camera
 {
